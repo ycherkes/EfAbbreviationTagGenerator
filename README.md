@@ -20,10 +20,10 @@ query.TagWithCallSiteAbbreviation();
 3. The source generator will automatically emit:
 
 ```csharp
-query.TagWith("#m5sg6s42");
+query.TagWith("#mcgu42");
 ```
 
-The tag `#m5sg6s42` is generated from a abbreviation of the call site like:
+The tag `#mcgu42` is generated from a abbreviation of the call site like:
 
 ```
 MyClass.GetUsers:L42
@@ -58,7 +58,7 @@ internal static class AbbreviationTagExtensions
     {
         switch (location)
         {
-            case "Test0.Main:L38": return "#t30m2n38";
+            case "Test0.Main:L38": return "#tm38";
             // ...
             default: return location;
         }
