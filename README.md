@@ -23,7 +23,7 @@ query.TagWithCallSiteAbbreviation();
 query.TagWith("#m5sg6s42");
 ```
 
-The tag `#a1b2c3d4` is generated from a abbreviation of the call site like:
+The tag `#m5sg6s42` is generated from a abbreviation of the call site like:
 
 ```
 MyClass.GetUsers:L42
