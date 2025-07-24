@@ -11,12 +11,12 @@
 		<IsRoslynComponent>true</IsRoslynComponent>
 		<LangVersion>latest</LangVersion>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-		<PackageProjectUrl>https://github.com/ycherkes/EfHashTagGenerator</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/ycherkes/EfAbbrevationTagGenerator</PackageProjectUrl>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-		<PackageTags>efcore hashtags</PackageTags>
+		<PackageTags>efcore tags</PackageTags>
 		<RepositoryType>git</RepositoryType>
-		<RepositoryUrl>https://github.com/ycherkes/EfHashTagGenerator</RepositoryUrl>
+		<RepositoryUrl>https://github.com/ycherkes/EfAbbrevationTagGenerator</RepositoryUrl>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<Title>EF Core call site abbreviation tag generator</Title>
 		<Version>0.0.1</Version>
