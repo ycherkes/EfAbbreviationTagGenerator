@@ -84,7 +84,7 @@ public class Tests
                 {
                     switch (location)
                     {
-                        case "Test0.Main:L38": return "#t30m2n38";
+                        case "Test0.Main:L38": return "#tm38";
                         default: return location;
                     }
                 }

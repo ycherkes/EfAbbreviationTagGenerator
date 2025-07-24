@@ -4,6 +4,7 @@ using Microsoft.CodeAnalysis.Text;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -123,10 +124,7 @@ public class AbbreviationTagGenerator : IIncrementalGenerator
     }
 
 
-    // Original code see https://github.com/ssamko0911/JavaCodeWars/blob/94a622cd7309f296152f68d54f10e2d1e08223c5/src/task028/Abbreviator.java#L33
-
-    private const int SHORT_WORD = 3;
-    private const int WORD_LENGTH_DELTA = 2;
+    private const int ShortWord = 3;
 
     private static string AbbreviateWord(string word)
     {
@@ -134,17 +132,27 @@ public class AbbreviationTagGenerator : IIncrementalGenerator
 
         var wordLength = normalized.Length;
 
-        if (wordLength < SHORT_WORD)
+        if (wordLength < ShortWord)
         {
-            return normalized;
+            return normalized.ToLowerInvariant();
         }
 
-        var characters = normalized.AsSpan();
-        var firstChar = characters[0];
-        var charCount = wordLength - WORD_LENGTH_DELTA;
-        var lastChar = characters[wordLength - 1];
+        var upper = new string(normalized.Where(char.IsUpper).ToArray());
+        if (upper.Length > 0)
+        {
+            return upper.ToLowerInvariant();
+        }
 
-        return firstChar + charCount.ToString() + lastChar;
+        var lowerNormalized = normalized.ToLowerInvariant();
+
+        var consonants = lowerNormalized.Where(IsConsonant).ToArray();
+
+        if (consonants.Length == 0)
+        {
+            return lowerNormalized;
+        }
+
+        return new string(consonants);
     }
 
     private static string Normalize(string word)
@@ -158,10 +166,25 @@ public class AbbreviationTagGenerator : IIncrementalGenerator
 
         foreach (var c in word.Where(char.IsLetterOrDigit))
         {
-            result.Append(char.ToLowerInvariant(c));
+            result.Append(c);
         }
 
         return result.ToString();
+    }
+
+    private static readonly string Vowels =
+        "aeiouy" +
+        "àáâãäåæèéêëìíîïòóôõöøùúûüýÿ" +
+        "аеёиіїыэоуюяє" +
+        "αεηιουω";
+
+    private static bool IsConsonant(char c)
+    {
+        var cat = CharUnicodeInfo.GetUnicodeCategory(c);
+        if (cat != UnicodeCategory.UppercaseLetter && cat != UnicodeCategory.LowercaseLetter)
+            return false;
+
+        return !Vowels.AsSpan().Contains([c], StringComparison.InvariantCultureIgnoreCase);
     }
 
     private class LocationWithAbbreviation
