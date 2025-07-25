@@ -5,7 +5,7 @@
 
 [![NuGet version (EfAbbreviationTagGenerator)](https://img.shields.io/nuget/v/EfAbbreviationTagGenerator.svg?style=flat-square)](https://www.nuget.org/packages/EfAbbreviationTagGenerator/)
 
-**EfAbbreviationTagGenerator** is a Roslyn Incremental Source Generator that enhances EF Core LINQ query tracing by generating deterministic and consistent SQL query tags based on the call site abbreviations. 
+**EfAbbreviationTagGenerator** is a Roslyn Incremental Source Generator that enhances EF Core LINQ query tracing by generating SQL query tags based on the call site abbreviations. 
 
 
 ## 🛠 Usage
