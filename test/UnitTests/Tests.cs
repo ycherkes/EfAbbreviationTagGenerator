@@ -60,36 +60,47 @@ public class Tests
                           """;
 
         var expectedGeneratedExtensionMethodSource =
-            """
-            using System;
-            using System.IO;
-            using System.Runtime.CompilerServices;
-            using Microsoft.EntityFrameworkCore;
-            using System.Linq;
+            $$"""
+              using System;
+              using System.CodeDom.Compiler;
+              using System.IO;
+              using System.Runtime.CompilerServices;
+              using Microsoft.EntityFrameworkCore;
+              using System.Linq;
 
-            internal static class AbbreviationTagExtensions
-            {
-                public static IQueryable<T> TagWithCallSiteAbbreviation<T>(
-                    this IQueryable<T> query,
-                    [CallerFilePath] string filePath = null,
-                    [CallerMemberName] string memberName = null,
-                    [CallerLineNumber] int lineNumber = 0)
-                {
-                    var location = $"{Path.GetFileNameWithoutExtension(filePath)}.{memberName}:L{lineNumber}";
-                    var hashTag = GetAbbreviationByLocation(location);
-                    return query.TagWith(hashTag);
-                }
+              [GeneratedCode("{{GeneratorInfo.Name}}", "{{GeneratorInfo.Version}}")]
+              internal static class AbbreviationTagExtensions
+              {
+                  /// <summary>
+                  /// Tags the query with a short abbreviation derived from the call site (file, method, and line number).
+                  /// </summary>
+                  /// <typeparam name="T">The type of elements in the query.</typeparam>
+                  /// <param name="query">The source queryable to tag.</param>
+                  /// <param name="filePath">The source file path of the call site (injected by the compiler).</param>
+                  /// <param name="memberName">The member name of the call site (injected by the compiler).</param>
+                  /// <param name="lineNumber">The line number of the call site (injected by the compiler).</param>
+                  /// <returns>The query tagged with the abbreviated call site identifier.</returns>
+                  public static IQueryable<T> TagWithCallSiteAbbreviation<T>(
+                      this IQueryable<T> query,
+                      [CallerFilePath] string filePath = null,
+                      [CallerMemberName] string memberName = null,
+                      [CallerLineNumber] int lineNumber = 0)
+                  {
+                      var location = $"{Path.GetFileNameWithoutExtension(filePath)}.{memberName}:L{lineNumber}";
+                      var hashTag = GetAbbreviationByLocation(location);
+                      return query.TagWith(hashTag);
+                  }
 
-                private static string GetAbbreviationByLocation(string location)
-                {
-                    switch (location)
-                    {
-                        case "Test0.Main:L38": return "#tm38";
-                        default: return location;
-                    }
-                }
-            }
-            """;
+                  private static string GetAbbreviationByLocation(string location)
+                  {
+                      switch (location)
+                      {
+                          case "Test0.Main:L38": return "#tm38";
+                          default: return location;
+                      }
+                  }
+              }
+              """;
 
         // Configure the test
         var test = new VerifyCS.Test
