@@ -19,7 +19,7 @@
 		<RepositoryUrl>https://github.com/ycherkes/EfAbbrevationTagGenerator</RepositoryUrl>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<Title>EF Core call site abbreviation tag generator</Title>
-		<Version>0.0.2</Version>
+		<Version>0.0.3</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

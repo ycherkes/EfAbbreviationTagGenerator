@@ -58,6 +58,7 @@ public class AbbreviationTagGenerator : IIncrementalGenerator
 
         var abbreviatedLocations = entries
             .GroupBy(e => $"{System.IO.Path.GetFileNameWithoutExtension(e.file)}.{e.method}:L{e.line}")
+            .OrderBy(g => g.Key)
             .Select(g => g.Select(i => new LocationWithAbbreviation { Location = $"{System.IO.Path.GetFileNameWithoutExtension(i.file)}.{i.method}:L{i.line}", Abbreviation = AbbreviateLocation(i) }).First())
             .ToArray();
 
@@ -86,13 +87,24 @@ public class AbbreviationTagGenerator : IIncrementalGenerator
 
         var source = $$"""
                   using System;
+                  using System.CodeDom.Compiler;
                   using System.IO;
                   using System.Runtime.CompilerServices;
                   using Microsoft.EntityFrameworkCore;
                   using System.Linq;
 
+                  [GeneratedCode("{{GeneratorInfo.Name}}", "{{GeneratorInfo.Version}}")]
                   internal static class AbbreviationTagExtensions
                   {
+                      /// <summary>
+                      /// Tags the query with a short abbreviation derived from the call site (file, method, and line number).
+                      /// </summary>
+                      /// <typeparam name="T">The type of elements in the query.</typeparam>
+                      /// <param name="query">The source queryable to tag.</param>
+                      /// <param name="filePath">The source file path of the call site (injected by the compiler).</param>
+                      /// <param name="memberName">The member name of the call site (injected by the compiler).</param>
+                      /// <param name="lineNumber">The line number of the call site (injected by the compiler).</param>
+                      /// <returns>The query tagged with the abbreviated call site identifier.</returns>
                       public static IQueryable<T> TagWithCallSiteAbbreviation<T>(
                           this IQueryable<T> query,
                           [CallerFilePath] string filePath = null,
