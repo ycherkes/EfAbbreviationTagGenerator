@@ -127,7 +127,7 @@ public class AbbreviationTagGenerator : IIncrementalGenerator
                   }
                   """;
 
-        context.AddSource("EfAbbreviationTagExtensions.g.cs", SourceText.From(source, Encoding.UTF8));
+        context.AddSource("EfAbbreviationTagExtensions.g.cs", SourceText.From(source.Replace("\r\n", "\n"), Encoding.UTF8));
     }
 
     private static string AbbreviateLocation((string file, string method, int line) location)
