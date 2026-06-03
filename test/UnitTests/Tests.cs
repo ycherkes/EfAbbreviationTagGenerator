@@ -115,7 +115,7 @@ public class Tests
                 GeneratedSources =
                 {
                     // Verify the generated sources
-                    (typeof(AbbreviationTagGenerator), "EfAbbreviationTagExtensions.g.cs", expectedGeneratedExtensionMethodSource)
+                    (typeof(AbbreviationTagGenerator), "EfAbbreviationTagExtensions.g.cs", expectedGeneratedExtensionMethodSource.Replace("\r\n", "\n"))
                 }
             },
         };
